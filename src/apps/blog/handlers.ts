@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import ApiResponse from "../../tools/responses";
-import BlogServices from "./services";
+import * as BlogServices from "./services";
 
 async function getArticles(_: Request, res: Response) {
     const articles = await BlogServices.getAllArticles();
@@ -26,6 +26,21 @@ async function postArticle(req: Request, res: Response) {
 
     ApiResponse.created(res, "Article Registered", article);
 }
+
+async function addCommentToArticle(req: Request, res: Response) {
+    const { username, text } = req.body;
+    const artName = req.params.name;
+    const result = await BlogServices.addCommentToArticle(artName, {
+        username,
+        text,
+    });
+    if (result.err) {
+        ApiResponse.resError(res, "Error updating the comment", result.data);
+        return;
+    }
+    ApiResponse.resOK(res, "comment added", result.data);
+}
+
 function patchArticles(_: Request, res: Response) {
     res.send("patch Article");
 }
@@ -39,4 +54,5 @@ export {
     postArticle,
     patchArticles,
     putArticles,
+    addCommentToArticle,
 };

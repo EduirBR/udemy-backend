@@ -4,8 +4,6 @@ const blogRouter = express.Router();
 
 blogRouter.get("/", handler.getArticles);
 blogRouter.get("/:name", handler.getArticlebyName);
-blogRouter.post("/", handler.postArticle);
-blogRouter.patch("/:id", handler.patchArticles);
-blogRouter.put("/:id", handler.putArticles);
+blogRouter.post("/:name/add-comments", handler.addCommentToArticle);
 
 export default blogRouter;

@@ -5,4 +5,9 @@ interface ArticleModel {
     content: string[];
 }
 
+interface CommentsModel {
+    username: string;
+    text: string;
+}
+export { CommentsModel };
 export default ArticleModel;
